@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Dub videos online through your browser with one click, no softwares needed - Dubroo</title>
+		<meta name="description" content="An online dubbing plaform where any youtube videos(Specially educational) can be dubbed and made the content available in different languages and versions, World's first online dubbing platform, online spoof generating platform,
+		online voiceover platform, dubroo with local langauge educational videos">
+		<meta name="author" content="Team Dubroo">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="../static/imgs/fbicon.png">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="stylesheet"  href="../static/css/bootstrap.min.css"/>
+		<link rel="stylesheet"  href="../static/css/commoncss.css?v=1.2"/>
+		<link rel="stylesheet"  href="../static/css/studio.css?v=2.11"/>
+
+		<meta property="og:title" content="Dub videos online through your browser with one click - Dubroo" />
+		<meta property="og:type" content="Website" />
+		<meta property="og:url" content="https://www.dubroo.com" />
+		<meta property="og:image" content="https://www.dubroo.com/static/imgs/fbogicon.png" />
+		<meta property="og:description" content="An online dubbing plaform where any youtube videos(Specially educational) can be dubbed and made the content available in different languages and versions" />
+		<meta property="fb:app_id" content="768565949892327" />
+		<!-- <meta property="fb:app_id" content="287941041330132" /> -->
+		<!-- <meta property="fb:admins" content="100000645208352" /> -->
+		<meta property="og:site_name" content="Dubroo" />
+		
+		<!-- <script>
+
+		521020229126
+
+			// 2. This code loads the IFrame Player API code asynchronously.
+			var tag = document.createElement('script');
+
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		</script> -->
+		<script>
+		    (function(d, t) {
+		    var g = d.createElement(t),
+		        s = d.getElementsByTagName(t)[0];
+		    g.src = 'https://assets.gfycat.com/js/gfyajax-0.517d.js';
+		    s.parentNode.insertBefore(g, s);
+		    }(document, 'script'));
+		</script>
+	</head>
+
+	<body>
+		<div class="clearfix">
+			<header class="clearfix">
+
+			</header>
+			<div class="studio-page page-body clearfix container-fluid">
+				<div class="catTabsContainer clearfix">
+					<ul class="catTabs clearfix"></ul>
+				</div>
+				
+				<div id="mainStudioSection" class="studio-body container-fluid" >
+					<div class="centerColumn clearfix row">
+						
+						<div class="PlayOriginalbutton" >
+							<a class="btn btn-default" href="javascript:void(0)"> Play Original Video </a>  
+						</div>
+						<div class="recorderLink" ><a class="btn btn-primary" href=""> Dub This Video </a>  </div>
+						<div class="rePlaybutton" >
+							<a class="btn btn-default" href="javascript:void(0)"> Replay </a>  
+						</div>
+					</div>
+					<div class="clearfix row audio-options">
+						<div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+							<div class="subtitle audiosubtitle">
+								Audio List
+							</div>
+							<div class="audioOptions clearfix">
+								<div class="audioFilter">
+									<select class="languageFilterSelect"></select>
+								</div>
+								<div class="audioFilter">
+									<input type="text"  placeholder="Search by Audio Name" class="languageFilterSearch form-control" aria-describedby="sizing-addon1" />
+									<div class="audiosuggestionbox">
+
+					                 </div>
+								</div>
+							</div>	
+						</div>
+					</div>
+					<div class="clearfix row">							
+						<div class="right-col col-md-12 col-lg-12 col-sm-12 col-xs-12">
+							<div class="audio-list clearfix">
+								
+							</div>
+						</div>
+						<div class="left-col videoscreen -md-7 col-lg-7 col-sm-12 col-xs-12 ">
+							<div class="studio ">
+								<div class="videoplayer clearfix">
+									<div class="videoname float100 fbbtn"></div>
+									<div class="videoplayerWrapper clearfix">
+										<div id="videoplayer"></div>
+										<div class="videocover"></div>
+									</div>
+									<!-- <iframe class="video" id="video" width="640" height="360" src="{{ video }}" frameborder="0" allowfullscreen></iframe> -->
+								</div>
+								<div class="gifholder clearfix">
+									
+								</div>
+								<div class="mainaudioplayer clearfix">
+									<div class="mainaudiodetails aud-name"></div>
+									<div class="mainaudioholder clearfix">
+										<audio id="mainaudio" controls></audio>
+										<!-- <div class="replay replayBtnIcon btns">
+											
+										</div> -->
+
+									</div>
+									<div class="audiopopularity clearfix">
+										<!-- <div class="socialplugin" id="fb-audike">
+										<div class="fb-like" data-href="https://www.facebook.com/dubroo"  data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+										</div> -->
+
+										<div class="voteicons clearfix">
+											<div class="viewcount">
+												<span class='glyphicon glyphicon-eye-open'> </span>
+												<span class="playedcount">0</span>
+											</div>
+											<div class="voteicon downvoteIcon">
+												<span class="votecount">0</span><img src="../static/imgs/downvoteicon.png" alt="downvoteicon">
+											</div>
+											<div class="voteicon upvoteIcon">
+												<span class="votecount">0</span><img src="../static/imgs/upvoteicon.png" alt="upvoteicon">
+											</div>
+										</div>
+										<div class="shareOpts clearfix">
+											<a class="dlLink audioLink" download href="">download</a>
+											<div class="fbcustom"><img src="../static/imgs/fbshare.jpg"/><span>share</span>
+											</div>
+											
+											<!-- <div class="fbcomment">comment</div> -->
+										</div>
+									</div>
+									<!-- <div id="fb-com" class="fbcommentholder">
+										<div  class="fb-comments" data-href="" data-numposts="5" data-width="440px" data-colorscheme="light"></div>
+									</div> -->
+
+									<!-- <div class="socialplugin audiolikes" id="fb-like">
+									<div class="fb-like" data-href="http://www.dubroo.com" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+									</div> -->
+								</div>
+							</div>
+
+						</div>
+
+
+
+
+
+						<!-- <div class="right-col col-md-12 col-lg-12 col-sm-12 col-xs-12">
+						
+							
+							<div class="subtitle audiosubtitle">
+								Audio List
+							</div>
+							<div class="audioOptions clearfix">
+								<div class="audioFilter">
+									<select class="languageFilterSelect"></select>
+								</div>
+								<div class="audioFilter">
+									<input type="text"  placeholder="Search by Audio Name" class="languageFilterSearch form-control" aria-describedby="sizing-addon1" />
+									<div class="audiosuggestionbox">
+
+					                 </div>
+								</div>
+							</div>
+							<div class="audio-list clearfix">
+								
+							</div>
+
+						</div> -->
+					</div>
+					
+				</div>
+				
+				
+					<div class="relatedVideos gallery-body row  clearfix">
+						<h4 class="float100 row">Related Videos</h4>
+						<div class="videoscontainer col-md-6 col-lg-5 clearfix">
+	
+						</div>
+						<div class="loadMore">
+										<div class="loadMoreWrapper">
+											<img src="../static/imgs/downArrowTriangle.png" alt="load more arrow" />
+										</div>
+									</div>
+					</div>
+			</div>
+			<!-- <div class="discussionforum">
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+					/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+					var disqus_shortname = 'dubroo';
+					// required: replace example with your forum shortname
+
+					/* * * DON'T EDIT BELOW THIS LINE * * */
+					(function() {
+						var dsq = document.createElement('script');
+						dsq.type = 'text/javascript';
+						dsq.async = true;
+						dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+						(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+					})();
+				</script>
+				
+
+			</div> -->
+			
+			
+			<footer>
+				
+
+			</footer>
+
+		</div>
+
+		<div class="bgcover"></div>
+		<div class="messageboard">
+
+			<div class="message">
+				<div class="closebtn">
+					<span>x</span>
+				</div>
+				<p></p>
+			</div>
+			<div class="okbtn">
+				<span>OK</span>
+			</div>
+		</div>
+		<div id="fb-root"></div>
+		<!-- <div class="pageloader"></div> -->
+		<!-- <div class="explainationBoardDub clearfix">
+		<div class="toparrow"></div>
+		<div class="menuExplainationBoard showtoleft">
+		<p>instruction text</p>
+		</div>
+		</div> -->
+
+		<script>
+			( function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id))
+						return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=768565949892327&version=v2.3";
+					// js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=287941041330132&version=v2.0";
+
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+		</script>
+		
+		<!-- <script src="../static/js/ytScript.js"></script> -->
+		<script type="text/javascript" src="https://www.youtube.com/player_api"></script>
+		
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/jquery-migrate-1.2.1.min.js"></script>
+		
+		<script src="../static/js/bootstrap.min.js"></script>
+		<!-- <script src="../static/js/modernizr.js"></script>
+		<script src="../static/js/foundation.tooltip.js"></script> -->
+		<!-- <script type="text/javascript" src="../static/js/recordRTCLatest.js"></script> -->
+		<script type="text/javascript" src="../static/js/jquery.nicescroll.min.js"></script>
+		<!-- <script type="text/javascript" src="../static/js/gpluslib.js" ></script>-->
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+		<script src="../static/js/common.js?v=2.24"></script>
+		<script src="../static/js/studio.js?v=2.11"></script>
+		<script src="../static/js/gplus.js"></script>
+		<script src="../static/js/fb.js?v=1.1"></script>
+
+		<!-- <script type="text/javascript" src="js/recorder.swf"></script> -->
+	</body>
+</html>

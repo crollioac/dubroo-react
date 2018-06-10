@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>RecordRTC | WebRTC Audio+Video+Screen Recording</title>
+    
+    <script src="../static/js/RecordRTC.js"></script>
+    <!-- for Edige/FF/Chrome/Opera/etc. getUserMedia support -->
+    <script src="https://cdn.webrtc-experiment.com/gumadapter.js"></script>
+</head>
+
+<body>
+            <audio muted></audio>
+        
+        <iframe id="existing-iframe-example"
+        width="640" height="360"
+        src="https://www.youtube.com/embed/5kT7oUB0q6Q?enablejsapi=1"
+        frameborder="0"
+        style="border: solid 4px #37474F"
+><track src="../static/subs/idealgas.srt" kind="subtitles" label="English subtitles" default></iframe>
+
+        <script>
+            (function() {
+                var params = {},
+                    r = /([^&=]+)=?([^&]*)/g;
+
+                function d(s) {
+                    return decodeURIComponent(s.replace(/\+/g, ' '));
+                }
+
+                var match, search = window.location.search;
+                while (match = r.exec(search.substring(1))) {
+                    params[d(match[1])] = d(match[2]);
+
+                    if(d(match[2]) === 'true' || d(match[2]) === 'false') {
+                        params[d(match[1])] = d(match[2]) === 'true' ? true : false;
+                    }
+                }
+
+                window.params = params;
+            })();
+
+            function addStreamStopListener(stream, callback) {
+                var streamEndedEvent = 'ended';
+
+                if ('oninactive' in stream) {
+                    streamEndedEvent = 'inactive';
+                }
+
+                stream.addEventListener(streamEndedEvent, function() {
+                    callback();
+                    callback = function() {};
+                }, false);
+
+                stream.getAudioTracks().forEach(function(track) {
+                    track.addEventListener(streamEndedEvent, function() {
+                        callback();
+                        callback = function() {};
+                    }, false);
+                });
+
+                stream.getVideoTracks().forEach(function(track) {
+                    track.addEventListener(streamEndedEvent, function() {
+                        callback();
+                        callback = function() {};
+                    }, false);
+                });
+            }
+        </script>
+
+        <script>
+
+            var recordingPlayer = document.querySelector('audio');
+
+            //document.querySelector('button').onclick = ;
+
+            function captureAudio(config) {
+                captureUserMedia({audio: true}, function(audioStream) {
+                    recordingPlayer.srcObject = audioStream;
+                    recordingPlayer.play();
+
+                    config.onMediaCaptured(audioStream);
+
+                    addStreamStopListener(audioStream, function() {
+                        config.onMediaStopped();
+                    });
+                }, function(error) {
+                    config.onMediaCapturingFailed(error);
+                });
+            }
+
+            function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
+                var isBlackBerry = !!(/BB10|BlackBerry/i.test(navigator.userAgent || ''));
+                if(isBlackBerry && !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia)) {
+                    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                    navigator.getUserMedia(mediaConstraints, successCallback, errorCallback);
+                    return;
+                }
+
+                navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+            }
+
+
+            /*recordingMedia.onchange = function() {
+                var options = [];
+                if(webrtcDetectedBrowser === 'firefox') {
+                        options.push('Ogg');
+
+                    setMediaContainerFormat(options);
+                    return;
+                }
+                    setMediaContainerFormat(['WAV', 'Ogg']);
+                    return;
+                setMediaContainerFormat(['WebM', 'Mp4', 'Ogg']);
+            };*/
+
+            /*if(webrtcDetectedBrowser === 'edge') {
+                // webp isn't supported in Microsoft Edge
+                // neither MediaRecorder API
+                // so lets disable both video/screen recording options
+
+                console.warn('Neither MediaRecorder API nor webp is supported in Microsoft Edge. You cam merely record audio.');
+
+                recordingMedia.innerHTML = '<option value="record-audio">Audio</option>';
+                setMediaContainerFormat(['WAV']);
+            }*/
+
+            if(webrtcDetectedBrowser === 'firefox') {
+                // Firefox implemented both MediaRecorder API as well as WebAudio API
+                // Their MediaRecorder implementation supports both audio/video recording in single container format
+                // Remember, we can't currently pass bit-rates or frame-rates values over MediaRecorder API (their implementation lakes these features)
+
+                /*recordingMedia.innerHTML = '<option value="record-audio-plus-video">Audio+Video</option>'
+                                            + '<option value="record-audio-plus-screen">Audio+Screen</option>'
+                                            + recordingMedia.innerHTML;*/
+
+                //setMediaContainerFormat(['WebM', 'Mp4']);
+            }
+
+            /*if(webrtcDetectedBrowser === 'chrome') {
+                recordingMedia.innerHTML = '<option value="record-audio-plus-video">Audio+Video</option>'
+                                            + recordingMedia.innerHTML;
+
+                if(typeof MediaRecorder === 'undefined') {
+                    console.info('This RecordRTC demo merely tries to playback recorded audio/video sync inside the browser. It still generates two separate files (WAV/WebM).');
+                }
+            }*/
+
+            /*function saveToDiskOrOpenNewTab(recordRTC) {
+                recordingDIV.querySelector('#save-to-disk').parentNode.style.display = 'block';
+                recordingDIV.querySelector('#save-to-disk').onclick = function() {
+                    if(!recordRTC) return alert('No recording found.');
+
+                    recordRTC.save();
+                };
+
+                recordingDIV.querySelector('#open-new-tab').onclick = function() {
+                    if(!recordRTC) return alert('No recording found.');
+
+                    window.open(recordRTC.toURL());
+                };
+            }*/
+        </script>
+        <script>
+                // todo: need to check exact chrome browser because opera also uses chromium framework
+                var isChrome = !!navigator.webkitGetUserMedia;
+
+                // DetectRTC.js - https://github.com/muaz-khan/WebRTC-Experiment/tree/master/DetectRTC
+                // Below code is taken from RTCMultiConnection-v1.8.js (http://www.rtcmulticonnection.org/changes-log/#v1.8)
+                var DetectRTC = {};
+
+                (function () {
+
+                    var screenCallback;
+
+                    DetectRTC.screen = {
+                        chromeMediaSource: 'screen',
+                        getSourceId: function(callback) {
+                            if(!callback) throw '"callback" parameter is mandatory.';
+                            screenCallback = callback;
+                            window.postMessage('get-sourceId', '*');
+                        },
+                        isChromeExtensionAvailable: function(callback) {
+                            if(!callback) return;
+
+                            if(DetectRTC.screen.chromeMediaSource == 'desktop') return callback(true);
+
+                            // ask extension if it is available
+                            window.postMessage('are-you-there', '*');
+
+                            setTimeout(function() {
+                                if(DetectRTC.screen.chromeMediaSource == 'screen') {
+                                    callback(false);
+                                }
+                                else callback(true);
+                            }, 2000);
+                        },
+                        onMessageCallback: function(data) {
+                            if (!(typeof data == 'string' || !!data.sourceId)) return;
+
+                            console.log('chrome message', data);
+
+                            // "cancel" button is clicked
+                            if(data == 'PermissionDeniedError') {
+                                DetectRTC.screen.chromeMediaSource = 'PermissionDeniedError';
+                                if(screenCallback) return screenCallback('PermissionDeniedError');
+                                else throw new Error('PermissionDeniedError');
+                            }
+
+                            // extension notified his presence
+                            if(data == 'rtcmulticonnection-extension-loaded') {
+                                if(document.getElementById('install-button')) {
+                                    document.getElementById('install-button').parentNode.innerHTML = '<strong>Great!</strong> <a href="https://chrome.google.com/webstore/detail/screen-capturing/ajhifddimkapgcifgcodmmfdlknahffk" target="_blank">Google chrome extension</a> is installed.';
+                                }
+                                DetectRTC.screen.chromeMediaSource = 'desktop';
+                            }
+
+                            // extension shared temp sourceId
+                            if(data.sourceId) {
+                                DetectRTC.screen.sourceId = data.sourceId;
+                                if(screenCallback) screenCallback( DetectRTC.screen.sourceId );
+                            }
+                        },
+                        getChromeExtensionStatus: function (callback) {
+                            if (!!navigator.mozGetUserMedia) return callback('not-chrome');
+
+                            var extensionid = 'ajhifddimkapgcifgcodmmfdlknahffk';
+
+                            var image = document.createElement('img');
+                            image.src = 'chrome-extension://' + extensionid + '/icon.png';
+                            image.onload = function () {
+                                DetectRTC.screen.chromeMediaSource = 'screen';
+                                window.postMessage('are-you-there', '*');
+                                setTimeout(function () {
+                                    if (!DetectRTC.screen.notInstalled) {
+                                        callback('installed-enabled');
+                                    }
+                                }, 2000);
+                            };
+                            image.onerror = function () {
+                                DetectRTC.screen.notInstalled = true;
+                                callback('not-installed');
+                            };
+                        }
+                    };
+
+                    // check if desktop-capture extension installed.
+                    if(window.postMessage && isChrome) {
+                        DetectRTC.screen.isChromeExtensionAvailable();
+                    }
+                })();
+
+                DetectRTC.screen.getChromeExtensionStatus(function(status) {
+                    if(status == 'installed-enabled') {
+                        if(document.getElementById('install-button')) {
+                            document.getElementById('install-button').parentNode.innerHTML = '<strong>Great!</strong> <a href="https://chrome.google.com/webstore/detail/screen-capturing/ajhifddimkapgcifgcodmmfdlknahffk" target="_blank">Google chrome extension</a> is installed.';
+                        }
+                        DetectRTC.screen.chromeMediaSource = 'desktop';
+                    }
+                });
+                window.addEventListener('message', function (event) {
+                    if (event.origin != window.location.origin) {
+                        return;
+                    }
+
+                    DetectRTC.screen.onMessageCallback(event.data);
+                });
+            </script>
+            </body>
+            <script src="../static/js/iframesub.js"></script>           
+
+</html>

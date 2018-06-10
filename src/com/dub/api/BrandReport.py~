@@ -1,0 +1,1030 @@
+'''
+Created on 22-Apr-2014
+
+@author: tousif
+'''
+from com.senseforth.database.BrandReportDataAccess import BrandReportDataAccess
+from google.appengine.api import memcache
+import logging
+import sys
+import ConfigParser
+from google.appengine.api import users
+import json
+from time import mktime
+import datetime as root
+from datetime import datetime, date,time
+
+
+
+
+
+class BrandReport:
+    
+
+    def getTimestamp(self,namespace):
+        midnight = datetime.combine((datetime.now()+ root.timedelta(hours=5,minutes=30)), time.max)
+        return mktime(midnight.timetuple())
+    
+    def __init__(self):
+        return
+    
+    def getBrandInsight(self,brandProductID,startdate,enddate):
+        responseData=dict()
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getBrandInsight(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        logging.info(sys.exc_info()[1])
+                
+            
+        return responseData
+    
+    def getBrandFeatureInsight(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+    
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"features"+"|"+"brandreport"
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getBrandFeatureInsight(brandProductID,startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        logging.info(sys.exc_info()[1])
+                
+            
+        return responseData
+    
+    def getTopProductsByBrand(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"top"+"|"+"positive"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getTopProductsByBrand(brandProductID,startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        
+        return responseData
+    
+    def getLowestRatingProductsByBrand(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"lowest"+"|"+"positive"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getLowestRatingProductsByBrand(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        
+        return responseData
+        
+        
+    def getTopTrendingFeatures(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"top"+"|"+"positive"+"|"+"features"+"|"+"brandreport"+"|"+startdate+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getTopTrendingFeatures(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        
+        return responseData
+    
+    
+    
+    def getLowestRatingFeatures(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"lowest"+"|"+"positive"+"|"+"features"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getLowestRatingFeatures(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        return responseData
+       
+    def getTopSites(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"top"+"|"+"positive"+"|"+"site"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getTopSites(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        return responseData
+    
+    def getLowestRatingSites(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"lowest"+"|"+"positive"+"|"+"site"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getLowestRatingSites(brandProductID,startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        return responseData
+       
+    def getTopSocialSites(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"top"+"|"+"positive"+"|"+"social"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getTopSocialSites(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        return responseData
+       
+    def getLowestRatingSocialSites(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"lowest"+"|"+"positive"+"|"+"social"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getLowestRatingSocialSites(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        
+        return responseData
+           
+           
+    def getTopReviewSites(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"top"+"|"+"positive"+"|"+"Review"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getTopReviewSites(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        return responseData
+    
+    
+    def getLowestRatingReviewSites(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+                mc = memcache.Client()
+                key=str(brandProductID)+"|"+"lowest"+"|"+"positive"+"|"+"Review"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    brandInsight=BrandReportDataAccess()
+                    responseData=brandInsight.getLowestRatingReviewSites(brandProductID, startdate,enddate,namespace)
+                    brandInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        return responseData
+    
+    
+    def getUserDataSitesInsight(self,brandProductID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc = memcache.Client()
+		key=str(brandProductID)+"|"+"userdata"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    brandInsight=BrandReportDataAccess()
+		    responseData=brandInsight.getUserDataSitesInsight(brandProductID, startdate,enddate,namespace)
+		    brandInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    def getExpertDataSitesInsight(self,brandProductID,interval,startDate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+ 
+		mc = memcache.Client()
+		key=str(brandProductID)+"|"+"experdata"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    brandInsight=BrandReportDataAccess()
+		    responseData=brandInsight.getExpertDataSitesInsight(brandProductID, startdate,enddate,namespace)
+		    brandInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    def getindividualEntityInsight(self,entityID,interval,startDate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		key= str(entityID)+"|"+"individualentity"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getIndividualEntityInsight(entityID,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    
+    def getEntityFeatureInsight(self,entityID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		
+		key= str(entityID)+"|"+"individualentity"+"|"+"features"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getEntityFeatureInsight(entityID,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    def getSourceDetailsIndividualEntity(self,entityID,startdate,enddate,userType):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		responseData = ""
+		key= str(entityID)+"|"+"individualentity"+"|"+"sources"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)+"|"+str(userType)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getSourceDetailsIndividualEntity(entityID,interval,startDate,userType,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    def getUsertypesIndividualEntity(self,entityID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		responseData = ""
+		key= str(entityID)+"|"+"individualentity"+"|"+"usertypes"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getUsertypesIndividualEntity(entityID,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        
+        return responseData
+    
+    def getPositiveHeadsIndividualEntity(self,entityID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		key= str(entityID)+"|"+"individualentity"+"|"+"positivetags"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getPositiveHeadsIndividualEntity(entityID,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        
+        return responseData
+    
+    def getNegativeHeadsIndividualEntity(self,entityID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		responseData = ""
+		key= str(entityID)+"|"+"individualentity"+"|"+"negativetags"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getNegativeHeadsIndividualEntity(entityID,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        
+        return responseData
+    
+    def getTopInfluencers(self,entityID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		responseData = ""
+		key= str(entityID)+"|"+"influencers"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getTopInfluencers(entityID,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        
+        return responseData
+    
+    def getProductsByFeature(self,featureID,relatedEntity,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		key= str(featureID)+"|"+str(relatedEntity)+"|"+"productsbyfeature"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getProductsByFeature(featureID,relatedEntity,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    def getFeatureSourceSplit(self,featureID,relatedEntity,startdate,productID,enddate,userType):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		key= str(featureID)+"|"+str(relatedEntity)+"|"+"sourcebyfeature"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(productID)+"|"+str(enddate)+"|"+str(userType)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getFeatureSourceSplit(featureID,relatedEntity,startdate,productID,enddate,userType,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    def getFeatureUserTypeSplit(self,featureID,relatedEntity,startdate,productID,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		key= str(featureID)+"|"+str(relatedEntity)+"|"+"usertypebyfeature"+"|"+"brandreport"+"|"+str(interval)+"|"+str(productID)+"|"+str(startDate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getFeatureUserTypeSplit(featureID,relatedEntity,startdate,productID,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+        
+    def getFeatureOpinionsOverall(self,featureID,relatedEntityID,startRow,endRow,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+
+		mc=memcache.Client()
+		responseData = ""
+		key= str(featureID)+"|"+str(relatedEntityID)+"|"+"opinions"+"|"+"brandreport"+"|"+str(startRow)+"|"+str(endRow)+"|"+str(startdate)+"|"+str(enddate)
+		if(mc.get(key,namespace)!=None):
+		    responseData=mc.get(key,namespace)
+		else:
+		    entityInsight=BrandReportDataAccess()
+		    responseData = entityInsight.getFeatureOpinionsOverall(featureID,relatedEntityID,startRow,endRow,startdate,enddate,namespace)
+		    entityInsight.closeConnection()
+		    try:
+		        mc.set(key,responseData,time,namespace)
+		    except:
+		        pass
+        return responseData
+    
+    def getFeatureOpinionOverallBySource(self,featureID,relatedEntityID,startRow,endRow,sourceName):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+
+            mc=memcache.Client()
+            responseData = ""
+            key= str(featureID)+"|"+str(relatedEntityID)+"|"+str(sourceName)+"|"+"opinions"+"|"+"brandreport"+"|"+str(startRow)+"|"+str(endRow)
+            if(mc.get(key)!=None):
+                responseData=mc.get(key)
+            else:
+                entityInsight=BrandReportDataAccess()
+                responseData = entityInsight.getFeatureOpinionOverallBySource(featureID,relatedEntityID,startRow,endRow,sourceName,namespace)
+                entityInsight.closeConnection()
+                try:
+                    mc.set(key,responseData,time)
+                except:
+                    pass
+        return responseData
+    
+    def getFeatureOpinionOverallByUserType(self,featureID,relatedEntityID,startRow,endRow,userType):
+
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc=memcache.Client()
+                responseData = ""
+                key= str(featureID)+"|"+str(relatedEntityID)+"|"+str(userType)+"|"+"opinions"+"|"+"brandreport"+"|"+str(startRow)+"|"+str(endRow)
+                if(mc.get(key)!=None):
+                    responseData=mc.get(key)
+                else:
+                    entityInsight=BrandReportDataAccess()
+                    responseData = entityInsight.getFeatureOpinionOverallByUserType(featureID,relatedEntityID,startRow,endRow,userType,namespace)
+                    entityInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time)
+                    except:
+                        pass
+        return responseData
+        
+    def getBrandFeatureSourceSplit(self,featureID,brandID,userType,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc=memcache.Client()
+                responseData = ""
+                key= str(featureID)+"|"+str(brandID)+"|"+"brandfeaturesourcesplit"+"|"+"brandreport"+"|"+str(userType)+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    entityInsight=BrandReportDataAccess()
+                    responseData = entityInsight.getBrandFeatureSourceSplit(featureID,brandID,userType,namespace)
+                    entityInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        return responseData
+    
+    def getBrandFeatureUserTypeSplit(self,featureID,brandID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc=memcache.Client()
+                responseData = ""
+                key= str(featureID)+"|"+str(brandID)+"|"+"brandfeatureusertype"+"|"+"brandreport"+"|"+str(startdate)+"|"+str(enddate)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    entityInsight=BrandReportDataAccess()
+                    responseData = entityInsight.getBrandFeatureUserTypeSplit(featureID,brandID,startdate,enddate,namespace)
+                    entityInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        return responseData
+    def getopinionsByEntity(self,entityID,startRow,endRow,startdate,enddate,userType,source,polarity):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc=memcache.Client()
+                responseData = ""
+                key= str(entityID)+"|"+str(startdate)+"|"+str(enddate)+"|"+str(startRow)+"|"+str(endRow)+"|"+str(userType)+"|"+str(source)+"|"+str(polarity)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    entityInsight=BrandReportDataAccess()
+                    responseData = entityInsight.getopinionsByEntity(entityID,startRow,endRow,startdate,enddate,userType,source,polarity,namespace)
+                    entityInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        return responseData
+    
+    def getopinionsByEntityFeature(self,entityID,featureID,startRow,endRow,startdate,enddate,userType,source,polarity,brandEntityID):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc=memcache.Client()
+                responseData = ""
+                key= str(entityID)+"|"+str(featureID)+"|"+str(startdate)+"|"+str(enddate)+"|"+str(startRow)+"|"+str(endRow)+"|"+str(userType)+"|"+str(source)+"|"+str(polarity)+"|"+str(brandEntityID)
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    entityInsight=BrandReportDataAccess()
+                    responseData = entityInsight.getopinionsByEntityFeature(entityID,featureID,startRow,endRow,startdate,enddate,userType,source,polarity,brandEntityID,namespace)
+                    entityInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        return responseData
+    
+    def getFeatureInsightByBrand(self,brandEntityID,featureID,startdate,enddate):
+        responseData = ""
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                namespace=brUserDA.getNamespace(clientID)
+
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+                time=self.getTimestamp(namespace)
+                mc=memcache.Client()
+                responseData = ""
+                key= str(brandEntityID)+"|"+str(featureID)+"|"+str(startdate)+"|"+str(enddate)+"|"+"featureinsightbybrand"
+                if(mc.get(key,namespace)!=None):
+                    responseData=mc.get(key,namespace)
+                else:
+                    entityInsight=BrandReportDataAccess()
+                    responseData = entityInsight.getFeatureInsightByBrand(brandEntityID,featureID,startdate,enddate,namespace)
+                    entityInsight.closeConnection()
+                    try:
+                        mc.set(key,responseData,time,namespace)
+                    except:
+                        pass
+        return responseData
+
+    def authenticateUser(self,email):
+        brUserDA=BrandReportDataAccess()
+        clientID=brUserDA.getClientID(email)
+        brUserDA.closeConnection()
+        return clientID
+    
+    def checkUser(self):
+        parser = ConfigParser.ConfigParser()
+        parser.read('settings.ini')
+        responseData=dict()
+        actionUrl = parser.get("clients", "actionurl")
+        brUserDA=BrandReportDataAccess()
+        user = users.get_current_user()
+        if(user!=None):
+            email = user.email()
+            username=email
+#            username="testuser@test.com"
+            clientID=brUserDA.getClientID(username)
+            if(clientID!=None):
+                responseData["clientID"]=clientID
+                responseData["actionUrl"]=actionUrl
+#                 responseData["namespace"]=brUserDA.getNamespace(clientID)
+#                 responseData["logouturl"]="v1.1/_ah/logout"
+                responseData=json.dumps(responseData)
+            else:
+                responseData=json.dumps({"error":"_ah/login_required"})
+        else:
+            responseData=json.dumps({"error":"_ah/login_required"})
+                
+        brUserDA.closeConnection()
+        
+        return responseData
+    
+    

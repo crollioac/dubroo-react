@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>Dub videos online through yourr browser with one click, no softwares needed - Dubroo</title>
+		<meta name="description" content="An online dubbing plaform where any youtube videos(Specially educational) can be dubbed and made the content available in different languages and versions, World's first online dubbing platform, online spoof generating platform,
+		online voiceover platform, dubroo with local langauge educational videos">
+		<meta name="author" content="Team Dubroo">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="../static/imgs/fbicon.png">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="stylesheet"  href="../static/css/bootstrap.min.css"/>
+		<link rel="stylesheet"  href="../static/css/admin.css"/>
+		<link rel="stylesheet"  href="../static/css/commoncss-min.css?v=2.3"/>
+		<link rel="stylesheet"  href="../static/css/gallery.css"/>
+		<link rel="stylesheet"  href="../static/css/jquery.comiseo.daterangepicker.css"/>
+		<link rel="stylesheet"  href="../static/css/jquery-ui.min.css"/>
+		<meta property="og:title" content="Dub videos online through ur browser with one click - Dubroo" />
+		<meta property="og:type" content="Website" />
+		<meta property="og:url" content="https://www.dubroo.com" />
+		<meta property="og:image" content="https://www.dubroo.com/static/imgs/fbogicon.png" />
+		<meta property="og:description" content="An online dubbing plaform where any youtube video(Specially educational) can be dubbed and made the content available in different languages and versions" />
+		<meta property="fb:app_id" content="768565949892327" />
+		<!-- <meta property="fb:app_id" content="287941041330132" /> -->
+		<!-- <meta property="fb:admins" content="100000645208352" /> -->
+		<meta property="og:site_name" content="Dubroo" />
+		
+	</head>
+
+	<body>
+	<div style="display: none;" class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    	<div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myLargeModalLabel">Edit Video Parameters</h4>
+        </div>
+        <div class="modal-body">
+        	<div class="form-group">
+	   			<label>Video name:</label>
+	    		<input type="text" class="videoname form-control" disabled="disabled">
+  			</div>
+		  	<div class="form-group">
+			    <label for="pwd">video category</label>
+			    <select class="form-control videocat">
+			    	<option value="">Select category</option>
+			    	<option value="education">education</option>
+			    	<option value="entertainment">entertainment</option>
+			    	<option value="howto">How To</option>
+			    	<option value="karoake">karaoke</option>
+			    	<option value="gifs">gifs</option>
+			    	<option value="nnpk">NNPK</option>
+			    	<option value="others">others</option>
+			    </select>
+		    </div>
+		    
+		</div>
+		<div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary updateVideoSubmit">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div>
+    </div><!-- /.modal-dialog -->
+    <div style="display: none;" class="modal fade" id="audioModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    	<div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myLargeModalLabel">Edit Audio Parameters</h4>
+        </div>
+        <div class="modal-body">
+        	<div class="form-group">
+	   			<label>Audio name:</label>
+	    		<input type="text" class="audioname form-control">
+  			</div>
+		  	<div class="form-group">
+			    <label>Language</label>
+			    <select class="form-control languageFilterSelect">
+			    	
+			    </select>
+		    </div>
+		    
+		</div>
+		<div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary updateAudioSubmit">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div>
+    </div><!-- /.modal-dialog -->
+  </div>
+		<div class="clearfix">
+            
+			<header class="clearfix">
+				<h2>Dubroo Admin</h2>
+			</header>
+			<div class="row">
+				<div class="col-sm-12">
+					<span><input id="e1" name="e1"></span>
+					<span><button class="btn btn-primary videoButton">Video</button></span>
+					<span><button class="btn btn-success audioButton">Audio</button></span>
+				</div>
+				<div class="col-sm-12 videoWrapper ">
+					<div class="videoCover clearfix" style="padding:10px;border:2px solid #ccc;">
+						
+					</div>
+						
+							
+				</div>
+				</div>
+				<div class="col-sm-12 audioWrapper " style="display:none;">
+
+					<div class="audioCover clearfix" style="padding:10px;border:2px solid #ccc;">
+						
+					</div>
+				</div>
+			</div>
+			<footer >
+				
+
+			</footer>
+		</div>
+		<div class="bgcover"></div>
+		<div class="messageboard">
+
+			<div class="message">
+				<div class="closebtn">
+					<span>x</span>
+				</div>
+				<p></p>
+			</div>
+			<div class="okbtn">
+				<span>OK</span>
+			</div>
+		</div>
+
+		
+        
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/bootstrap.min.js"></script>
+		<script src="../static/js/jquery-ui.min.js"></script>
+		<script src="../static/js/moment.min.js"></script>
+	 	<script src="../static/js/jquery.comiseo.daterangepicker.min.js"></script>
+	 	<script src="../static/js/admin.js"></script>
+
+	</body>
+</html>

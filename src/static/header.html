@@ -1,0 +1,375 @@
+<div class="logo">
+	<a href="/">
+	<div class="logoimg"><img src="../static/imgs/dubroologo.png" alt="logo" />
+	</div> </a>
+</div>
+<div class="searchvideo">
+	<input type="text" class="videosearchbox form-control" placeholder="Video name" />
+	<img class="searchimg" src="../static/imgs/search.png" alt="search img"/>
+	<div class="suggestionbox">
+
+	</div>
+</div>
+<div class="socialplugin">
+	<div class="fb-like" data-href="https://www.facebook.com/dubroo"  data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+</div>
+<div class="topmenu clearfix">
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="instooltip" data-toggle="tooltip" data-placement="bottom" title="To Add video of your choice to Dubroo gallery, copy and paste Youtube URL of the Video.">
+			<a href="javascript:void(0)" data-toggle="modal" class="modalanchor" data-target="#addVideo">Dub New Video</a>
+		</li>
+		<li role="presentation">
+			<a href="https://dubroo.wordpress.com"  data-target="blogLink" target="_blank">Blog</a>
+		</li>
+		<li role="presentation">
+			<a href="javascript:void(0)" class="modalanchor" data-toggle="modal" data-target="#aboutusModal">Vision</a>
+		</li>
+		<li role="presentation">
+			<a href="javascript:void(0)" class="modalanchor" data-toggle="modal" data-target="#instructionModal">Instructions</a>
+		</li>
+		<li role="presentation">
+			<a href="javascript:void(0)" class="modalanchor" data-toggle="modal" data-target="#contactusModal">Contact us</a>
+		</li>
+		<li class="loginBtn" role="presentation">
+			<a href="javascript:void(0)" class="modalanchor" data-toggle="modal" data-target="#loginModal">Log in</a>
+		</li>
+		<li class="logoutBtn" role="presentation"><img src="../static/imgs/dummyuser.png" alt="user image" /></a>
+			<div class="logoutbox clearfix" >
+				<div class="userDetailHolder">
+					<div>
+						<a class="userNameField">My Profile</a>
+					</div>
+					<div>
+						<a href="/profile" class="editProfile">My Profile</a>
+					</div>
+					<div>
+						<a href="javascript:void(0)" class="logoutLink">Log out</a>
+					</div>
+				</div>
+			</div>
+
+		</li>
+	</ul>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addVideo" tabindex="-1" role="dialog" aria-labelledby="addVideoLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="addVideoLabel">Add Youtube Video</h4>
+			</div>
+			<div class="modal-body">
+				<div class="videoadditionform clearfix">
+					<div class="videourl">
+						<input type="text" placeholder="Video/Gif URL" class="form-control instooltip" data-toggle="tooltip" data-placement="bottom" title="You can copy and paste youtube video URL or GIF URL from gfycat.com ."   aria-describedby="sizing-addon1" />
+						
+						</div>
+					<!-- <div class="srtfile">
+						<input type="file" id="myFile">
+					</div> -->
+					<div class="addvideoname">
+						<input type="text" placeholder="Video/Gif Name"class="form-control" aria-describedby="sizing-addon1" />
+					</div>
+					<div class="videocategory">
+						<select class="videocategoryselect form-control">
+							<option value="all">Select category</option>
+							<option value="education">Education</option>
+							<option value="entertainment">Entertainment</option>
+							<option value="howto">How To</option>
+							<option value="karaoke">Karaoke</option>
+							<!-- <option value="yoga">Yoga</option> -->
+							<option value="others">Others</option>
+						</select>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Close
+				</button>
+
+				<div  class="btn btn-primary addvideobtn">
+					Add Video
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="aboutusModal" tabindex="-1" role="dialog" aria-labelledby="aboutusLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="aboutusLabel">Our Vision</h4>
+			</div>
+			<div class="modal-body">
+				<div class="dubrooVideo">
+				    <iframe width="560" height="315" src="https://www.youtube.com/embed/9-GNy9cZMao" frameborder="0" allowfullscreen></iframe>
+			    </div>
+			     <div><p><strong> "All the videos in all the languages" </strong></p></div>
+			     <br />
+			     <br />
+			     <div> <p>Language should not be a barrier to access knowledge </p></div>
+			     <br />
+			     <br />
+			     <div> <p>"Ideas must be taught in the language of the people" - Swami Vivekananda </p></div>
+			     <br />
+			     <br />
+			     <div><p>Dubroo is a place for the videos in all the languages </p></div>
+			     
+			     
+			     
+			</div>
+			
+			<!-- <div class="modal-body">
+				<p>
+					<span>
+						Language should not be a barrier for Learning
+					</span>
+				</p>
+				<p>
+					More than 80% of the content on internet is in only 10 languages. India has 22 official languages,11 scripts & 100's of unofficial languages.
+				</p>
+				<br />
+				
+				
+				<br />
+				<p>
+					We need local language Educational content to improve Education in India and world over. This is no small task. It requires massive effort and crowd sourcing is the answer.
+				</p>
+				<br />
+				<p>
+					Lets dub high quality Educational content like Khan Academy videos in the languages we know. Let us create a huge collection of local language Educational content which can be later used by schools in rural areas.
+				</p>
+				<p>
+					Please contribute using our dubbing tool.
+				</p>
+				<br />
+
+				<p>
+					<span> Dubroo is the world's first crowdsourcing platform for dubbing.</span>
+				</p>
+				<br />
+
+				<p>
+					Watch dubbed YouTube videos or Dub any Youtube video online.
+				</p>
+				<br />
+				
+				
+				<p>
+					<span>
+						"The ideas must be taught in the language of the people. Teach the masses in the vernaculars." - Swami Vivekananda
+					</span>
+				</p>
+				
+				
+			</div> -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="instructionModal" tabindex="-1" role="dialog" aria-labelledby="addVideoLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="addVideoLabel">Instructions to Record</h4>
+			</div>
+			<div class="modal-body">
+				<div class="showtoleft">
+					<p>
+						<h4 class="modal-title" >**Be a Dubber** </h4>
+					</p>
+
+					<p>
+						- Use the latest 'Mozilla Firefox' browser for an error free dubbing experience.
+					</p>
+					<p>
+						<h4 class="modal-title" >**Choose a Video** </h4>
+					</p>
+
+					<p>
+						Using add video option you can add a new Youtube video and start dubbing or you can discover videos
+						by browsing through differnt categories in the gallery or you can find specific videos by using our search function.
+					</p>
+
+					<p>
+						<h4 class="modal-title" >**Start Dubbing**</h4>
+					</p>
+
+					<p>
+						On the Dubbing studio page, Click on the <span>Enable microphone</span> button below the video and share your Microphone with the website. Then Click <span>RECORD</span> and Start dubbing, let your imagination take over.
+					</p>
+
+					<p>
+						<h4 class="modal-title" >**Features of the Dubbing studio page**</h4>
+					</p>
+
+					<p>
+						- You can view the original video before recording, by just clicking on it.
+					</p>
+
+					<p>
+						- If you wish to start dubbing the video from a certain time (Ex. From 30th sec or 150th sec), insert the time in seconds in <span> "Start Video Time in Seconds" </span> option. By default the video starts from 0 secs.
+					</p>
+
+					<p>
+						- You can <span> Pause</span>, <span>Resume</span> and <span>Stop</span> the recording.
+					</p>
+
+					<p>
+						- Once your dubbing is over, Use the <span> PREVIEW</span> button to watch your dubbing.
+					</p>
+
+					<p>
+						- (Optional) Use the "Adjust Video Start Time" option to adjust the sync of the audio with the video.
+					</p>
+
+					<p>
+						- Enter details and click FINISH to post the dub.
+					</p>
+
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="contactusModal" tabindex="-1" role="dialog" aria-labelledby="addVideoLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="addVideoLabel">Contact Dubdudes</h4>
+			</div>
+			<div class="modal-body">
+				<div class=" showtoleft">
+
+					<p>
+						Write your queries, suggestions, requests to
+					</p>
+					<p>
+						Email ID:<span> dubroofounders@gmail.com </span>
+					</p>
+					<br />
+					<p>
+						<span><a href="https://www.facebook.com/dubroo" target="_blank"><img src="../static/imgs/fbshare.jpg" > https://www.facebook.com/dubroo</a> </span>
+					</p>
+					<p>
+						Like dubroo page to get new updates and notified when an awesome video is dubbed
+					</p>
+					<br />
+					<p>
+						<span><a href="https://twitter.com/DubrooTeam" target="_blank"><img src="../static/imgs/twitter.png" > https://twitter.com/DubrooTeam</a> </span>
+					</p>
+					<p>
+						Follow dubroo page to get latest updates and dubbed recordings
+					</p>
+					<p>
+						Thank you, Enjoy dubbing and watching the dubs
+					</p>
+					<p>
+						<h4 class="modal-title" >Cheers </h4>
+					</p>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="addVideoLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="addVideoLabel">Login Here</h4>
+			</div>
+			<div class="modal-body">
+				<div class="loginBtns clearfix">
+					<div class="googlelogin">
+						<span id="signinButton"><img src="../static/imgs/gplusimgage.png" /> <span> Login with Google </span> </span>
+					</div>
+					<div class="fblogin">
+						<img src="../static/imgs/fbshare.jpg">
+						<span>Login with FB</span>
+					</div>
+				</div>
+				<div class="msg">
+					<div class="msgText">
+						We will not spam your inbox. </br></br>
+						Now you can use cool names to record and hide your Identity(Optional).
+						Please login to create your dubbing profile.
+					</div>
+				</div>
+
+				<div class="msg">
+					<div class="msgText">
+						</br></br>
+						* if nothing happens on clicking Login button, Please enable popups in browser settings 
+						
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <div class="row dubroocampagin"> 
+	<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+		<img src="../static/imgs/independeneceDay.jpg" alt='banner link' />
+	</div>
+	<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+		<div class="campaignDesc">
+			<p class="campaignHead"><span>SAY JAI HIND WITH DUBROO</span></p>
+			<p class="campaignExpl">
+				Let's share a sentence that comes to our mind whenever we see our Tricolour. At the end say <span>"JAI HIND"</span>
+			</p>
+			<p>
+				<a href="/recorder?li=KBjHx7D6lbw" target="_blank" class="btn btn-primary">Dub Me</a> <span>Press Record > "Your mann ki baat"+"Jai hind" > Finish </span>
+			</p>
+		</div>
+	</div>
+	<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+
+		
+		<div class="VideoThumb">
+			<div class="helpingBtns">
+				<a href="/recorder?li=KBjHx7D6lbw" target="_blank" class="btn btn-primary">I want to Say</a>
+				<a href="/studio?li=KBjHx7D6lbw" class="btn btn-primary">People Said</a> 
+			</div>
+			<a href="/studio?li=KBjHx7D6lbw"><img src="http://img.youtube.com/vi/KBjHx7D6lbw/mqdefault.jpg" alt="Video thumbnail" /></a> 
+		</div>
+	</div>
+</div> -->

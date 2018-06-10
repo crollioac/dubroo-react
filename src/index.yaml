@@ -1,0 +1,34 @@
+indexes:
+
+- kind: Video
+  properties:
+  - name: dubsCount
+    direction: desc
+  - name: addedDate 
+    direction: desc
+  - name: name
+  - name: status 
+
+- kind: Audio
+  ancestor: yes
+  properties:
+  - name: language
+  - name: composerEmail
+  - name: composer
+  - name: viewCount
+    direction: desc
+  - name: recordeddate
+    direction: desc
+
+
+- kind: Audio
+  properties:
+  - name: composer
+  - name: recordeddate
+    direction: desc
+  - name: status
+
+- kind: User
+  ancestor: yes
+  properties:
+  - name: userDisplayName
